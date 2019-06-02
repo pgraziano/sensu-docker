@@ -1,0 +1,12 @@
+{
+    "checks": {
+        "check-file": {
+            "auto_resolve": true,
+            "interval": 60,
+            "command": "/etc/sensu/plugins/check-file.sh /etc/passwd",
+            "occurrences": 1,
+            "dependencies": null,
+            "standalone": true
+        }
+    }
+}

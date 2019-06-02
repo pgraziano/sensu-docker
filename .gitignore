@@ -1,0 +1,11 @@
+ssl/client/
+ssl/sensu_ca/cacert.pem
+ssl/sensu_ca/certs/
+ssl/sensu_ca/index.txt
+ssl/sensu_ca/index.txt.attr
+ssl/sensu_ca/index.txt.attr.old
+ssl/sensu_ca/index.txt.old
+ssl/sensu_ca/private/
+ssl/sensu_ca/serial
+ssl/sensu_ca/serial.old
+ssl/server/

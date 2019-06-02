@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  sensu:
+    build: ./sensu
+    ports:
+      - "4567:4567" # sensu api port
+      - "3000:3000" # uchiwa port
+    volumes:
+      - "./ssl/server/cert.pem:/etc/sensu/ssl/cert.pem:ro"
+      - "./ssl/server/key.pem:/etc/sensu/ssl/key.pem:ro"
+    links:
+      - rabbitmq
+      - redis
+    restart: always
+
+  redis:
+    image: redis
+    restart: always
+
+  rabbitmq:
+    build: ./rabbitmq
+    ports:
+      - "5671:5671" # rabbit port
+    volumes:
+      - "./ssl/sensu_ca/cacert.pem:/etc/rabbitmq/ssl/cacert.pem:ro"
+      - "./ssl/server/cert.pem:/etc/rabbitmq/ssl/cert.pem:ro"
+      - "./ssl/server/key.pem:/etc/rabbitmq/ssl/key.pem:ro"
+    environment:
+      RABBIT_SENSU_USER: "${RABBIT_SENSU_USER:-sensu}"
+      RABBIT_SENSU_PASS: "${RABBIT_SENSU_PASS:-sensu}"
+    restart: always
+
+  client:
+    build: ./client
+    volumes:
+      - "./ssl/client/cert.pem:/etc/sensu/ssl/cert.pem:ro"
+      - "./ssl/client/key.pem:/etc/sensu/ssl/key.pem:ro"
+    restart: always

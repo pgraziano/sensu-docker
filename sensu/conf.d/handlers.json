@@ -1,0 +1,18 @@
+{
+  "handlers": {
+    "default": {
+      "type": "set",
+      "handlers": ["pagerduty"]
+    },
+    "pagerduty": {
+      "command": "/opt/sensu/embedded/bin/handler-pagerduty.rb",
+      "type": "pipe",
+      "severities": [
+        "ok",
+        "critical",
+        "unknown",
+        "warning"
+      ]
+    }
+  }
+}
